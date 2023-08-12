@@ -1,6 +1,7 @@
 import React from 'react'
 import {Navbar, Nav, Container}  from 'react-bootstrap'
 import {FaShoppingCart, FaUser} from 'react-icons/fa'
+import logo from '../assets/logo.png'
 
 const Header = () => {
   return (
@@ -8,7 +9,9 @@ const Header = () => {
         {/* whenever the screen is medium in size or less than that show Hamburger */}
         <Navbar bg='dark' variant='dark' expand='md' collapseOnSelect>
             <Container>
-                <Navbar.Brand href='/'>ProShop</Navbar.Brand>
+                <Navbar.Brand href='/'>
+                    <img src={logo} alt='proshop'/>
+                    ProShop</Navbar.Brand>
                 <Navbar.Toggle aria-controls='basic-navbar-nav'></Navbar.Toggle>
                 <Navbar.Collapse id="basic-navbar-nav">
                     {/* ms-auto align links to the right 
