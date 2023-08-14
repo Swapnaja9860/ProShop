@@ -2,7 +2,7 @@ import React from 'react'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import {Container} from "react-bootstrap"
-import HomeScreen from './screens/HomeScreen'
+import { Outlet } from 'react-router-dom'
 
 const App = () => {
   return (
@@ -11,7 +11,7 @@ const App = () => {
     {/* py-3 padding on the y-axis top and bottom */}
     <main className='py-3'>
       <Container>
-        <HomeScreen/>
+        <Outlet />
       </Container>
     </main>
     <Footer/>
