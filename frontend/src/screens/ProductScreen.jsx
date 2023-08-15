@@ -4,13 +4,24 @@ import products from '../products'
 import { Link } from 'react-router-dom'
 import {Row, Col, Image, Card, Button, ListGroup, ListGroupItem} from 'react-bootstrap'
 import Rating from '../components/Rating';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+
+import axios from 'axios'
+import { useState, useEffect } from 'react'
 
 const ProductScreen = () => {
  const navigate = useNavigate()
  const {id: productId} = useParams();
- const product = products.find((product) => product._id === productId)
- console.log(product)
+   
+  const [product, setProduct] = useState({})
+  useEffect(()=>{
+   const fetchProduct = async () => {
+      const {data} = await axios.get(`/api/products/${productId}`)
+      setProduct(data)
+    }
+   fetchProduct();
+  }, [])
+
   return (
     <>
     <button onClick={() => navigate(-1)} className='btn btn-light my-3'> 
