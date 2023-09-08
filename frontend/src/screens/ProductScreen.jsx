@@ -3,29 +3,36 @@ import { useParams } from 'react-router-dom'
 import {Row, Col, Image, Card, Button, ListGroup, ListGroupItem} from 'react-bootstrap'
 import Rating from '../components/Rating';
 import { useNavigate } from 'react-router-dom';
-
-import axios from 'axios'
-import { useState, useEffect } from 'react'
+import { useGetProductDetailsQuery } from '../slices/productApiSlice';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
+// import axios from 'axios'
+// import { useState, useEffect } from 'react'
 
 const ProductScreen = () => {
  const navigate = useNavigate()
  const {id: productId} = useParams();
    
-  const [product, setProduct] = useState({})
-  useEffect(()=>{
-   const fetchProduct = async () => {
-      const {data} = await axios.get(`/api/products/${productId}`)
-      setProduct(data)
-    }
-   fetchProduct();
-  }, [])
+//   const [product, setProduct] = useState({})
+//   useEffect(()=>{
+//    const fetchProduct = async () => {
+//       const {data} = await axios.get(`/api/products/${productId}`)
+//       setProduct(data)
+//     }
+//    fetchProduct();
+//   }, [])
+
+  const {data: product, isLoading, error} = useGetProductDetailsQuery(productId);
 
   return (
     <>
     <button onClick={() => navigate(-1)} className='btn btn-light my-3'> 
         Go Back
     </button>
-    <Row>
+
+    {isLoading ? (<Loader/>) : error ?
+     (<Message variant='danger'>{error?.data?.message || error.error}</Message>) : (
+         <Row>
         <Col md={5}>
             <Image src={product.image} alt={product.name} fluid />
         </Col>
@@ -77,6 +84,8 @@ const ProductScreen = () => {
             </Card>
         </Col>
     </Row>
+    )}
+   
     {/* <Card>
         <Card.Title>
             {product.name}
