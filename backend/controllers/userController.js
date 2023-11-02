@@ -43,6 +43,13 @@ const registerUser =  asyncHandler(async (req, res)=>{
         password
     });
 
+// if we look in local storage, that user is stored in local storage.
+// And if I go down to my cookie, you can see that my http only cookie is stored as well.
+// So I'm logged in. And then if I log out, that gets destroyed.
+// So I think that this is not only it's not only more secure than sending your Json web token back to the client and storing it in local storage, it's not only more secure than that, but it's also easier.
+// We don't have to worry about sending a token, you know, manually to every protected route because it's always going to be sent when you store it in Http only cookie, it's going to be sent until it's destroyed.
+
+
     if(user){
          generateToken(res, user._id) 
         res.status(201).json({
